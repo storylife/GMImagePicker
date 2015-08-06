@@ -73,6 +73,14 @@ static CGSize const kPopoverContentSize = {480, 720};
 @property (nonatomic) NSInteger colsInLandscape;
 @property (nonatomic) double minimumInteritemSpacing;
 
+/**
+ *  Filtering of asset types to images and simple image collections only
+ *  Default is NO
+ */
+
+@property (nonatomic) BOOL showImagesOnly;
+
+
 
 @property (nonatomic, strong) UINavigationController *navigationController;
 
@@ -87,6 +95,15 @@ static CGSize const kPopoverContentSize = {480, 720};
  */
 - (void)dismiss:(id)sender;
 - (void)finishPickingAssets:(id)sender;
+
+
+/**
+ *  Allow selecting multiple items
+ *  Default is YES
+ */
+
+@property (nonatomic) BOOL canSelectMultipleItems; // not working yet ;)
+
 
 @end
 

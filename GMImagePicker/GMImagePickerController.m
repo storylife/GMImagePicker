@@ -39,6 +39,7 @@
                                     @(PHAssetCollectionSubtypeSmartAlbumTimelapses),
                                     @(PHAssetCollectionSubtypeSmartAlbumBursts),
                                     @(PHAssetCollectionSubtypeSmartAlbumPanoramas)];
+        
         //If you don't want to show smart collections, just put _customSmartCollections to nil;
         //_customSmartCollections=nil;
         
@@ -48,6 +49,7 @@
     }
     return self;
 }
+
 
 - (void)dealloc
 {
@@ -66,6 +68,36 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+// MARK: optional show images only
+
+- (void)setShowImagesOnly:(BOOL)showImagesOnly
+{
+    _showImagesOnly = showImagesOnly;
+    if (showImagesOnly) {
+        [self changeCustomSmartCollectionTypesToImageCollectionsOnly];
+    } else {
+        [self changeCustomSmartCollectionTypesToAllTypesAllowed];
+    }
+}
+
+- (void)changeCustomSmartCollectionTypesToImageCollectionsOnly
+{
+    self.customSmartCollections = @[@(PHAssetCollectionSubtypeSmartAlbumFavorites),
+                                    @(PHAssetCollectionSubtypeSmartAlbumRecentlyAdded)];
+}
+
+- (void)changeCustomSmartCollectionTypesToAllTypesAllowed
+{
+    self.customSmartCollections = @[@(PHAssetCollectionSubtypeSmartAlbumFavorites),
+                                    @(PHAssetCollectionSubtypeSmartAlbumRecentlyAdded),
+                                    @(PHAssetCollectionSubtypeSmartAlbumVideos),
+                                    @(PHAssetCollectionSubtypeSmartAlbumSlomoVideos),
+                                    @(PHAssetCollectionSubtypeSmartAlbumTimelapses),
+                                    @(PHAssetCollectionSubtypeSmartAlbumBursts),
+                                    @(PHAssetCollectionSubtypeSmartAlbumPanoramas)];
+}
+
 
 #pragma mark - Setup Navigation Controller
 

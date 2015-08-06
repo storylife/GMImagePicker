@@ -92,11 +92,20 @@ static NSString * const CollectionCellReuseIdentifier = @"CollectionCell";
     
     //NSPredicate *predicatePHCollectionList = [NSPredicate predicateWithFormat:@"(mediaType == %d)", PHAssetMediaTypeImage];
     //NSPredicate *predicatePHAssetCollection = [NSPredicate predicateWithFormat:@"(mediaType == %d)", PHAssetMediaTypeImage];
-    //NSPredicate *predicatePHAsset = [NSPredicate predicateWithFormat:@"(mediaType == %d)", PHAssetMediaTypeImage];
+    NSPredicate *predicatePHAsset = [NSPredicate predicateWithFormat:@"(mediaType == %d)", PHAssetMediaTypeImage];
+    
+    PHFetchOptions *collectionListOptions = [[PHFetchOptions alloc]init];
+    //collectionListOptions.predicate = predicatePHCollectionList;
+    
+    PHFetchOptions *assetCollectionOptions = [[PHFetchOptions alloc]init];
+    //assetCollectionOptions.predicate = predicatePHAssetCollection;
+    
+    PHFetchOptions *assetOptions = [[PHFetchOptions alloc]init];
+    assetOptions.predicate = predicatePHAsset;
     
     //Fetch PHAssetCollections:
-    PHFetchResult *topLevelUserCollections = [PHCollectionList fetchTopLevelUserCollectionsWithOptions:nil];
-    PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
+    PHFetchResult *topLevelUserCollections = [PHCollectionList fetchTopLevelUserCollectionsWithOptions:collectionListOptions];
+    PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:assetCollectionOptions];
     self.collectionsFetchResults = @[topLevelUserCollections, smartAlbums];
     self.collectionsLocalizedTitles = @[NSLocalizedStringFromTable(@"picker.table.user-albums-header", @"GMImagePicker",@"Albums"), NSLocalizedStringFromTable(@"picker.table.smart-albums-header", @"GMImagePicker",@"Smart Albums")];
     
@@ -124,13 +133,19 @@ static NSString * const CollectionCellReuseIdentifier = @"CollectionCell";
     PHFetchResult *topLevelUserCollections = [self.collectionsFetchResults objectAtIndex:0];
     PHFetchResult *smartAlbums = [self.collectionsFetchResults objectAtIndex:1];
     
+    NSPredicate *imagesOnlyPredicate = [NSPredicate predicateWithFormat:@"(mediaType == %d)", PHAssetMediaTypeImage];
+    
+    
     //All album: Sorted by descending creation date.
     NSMutableArray *allFetchResultArray = [[NSMutableArray alloc] init];
     NSMutableArray *allFetchResultLabel = [[NSMutableArray alloc] init];
     {
         PHFetchOptions *options = [[PHFetchOptions alloc] init];
         options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
-        //options.predicate = predicatePHAsset;
+        if (self.picker.showImagesOnly) {
+            options.predicate = imagesOnlyPredicate;
+        }
+        
         PHFetchResult *assetsFetchResult = [PHAsset fetchAssetsWithOptions:options];
         [allFetchResultArray addObject:assetsFetchResult];
         [allFetchResultLabel addObject:NSLocalizedStringFromTable(@"picker.table.all-photos-label", @"GMImagePicker",@"All photos")];
@@ -143,13 +158,16 @@ static NSString * const CollectionCellReuseIdentifier = @"CollectionCell";
     {
         if ([collection isKindOfClass:[PHAssetCollection class]])
         {
-            //PHFetchOptions *options = [[PHFetchOptions alloc] init];
-            //options.predicate = predicatePHAsset;
             PHAssetCollection *assetCollection = (PHAssetCollection *)collection;
             
             //Albums collections are allways PHAssetCollectionType=1 & PHAssetCollectionSubtype=2
             
-            PHFetchResult *assetsFetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:nil];
+            PHFetchOptions *options = [[PHFetchOptions alloc] init];
+            if (self.picker.showImagesOnly) {
+                options.predicate = imagesOnlyPredicate;
+            }
+            
+            PHFetchResult *assetsFetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:options];
             [userFetchResultArray addObject:assetsFetchResult];
             [userFetchResultLabel addObject:collection.localizedTitle];
         }
@@ -170,7 +188,11 @@ static NSString * const CollectionCellReuseIdentifier = @"CollectionCell";
             {
                 PHFetchOptions *options = [[PHFetchOptions alloc] init];
                 options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
-                //options.predicate = predicatePHAsset;
+                
+                if (self.picker.showImagesOnly) {
+                    options.predicate = imagesOnlyPredicate;
+                }
+                
                 PHFetchResult *assetsFetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:options];
                 if(assetsFetchResult.count>0)
                 {

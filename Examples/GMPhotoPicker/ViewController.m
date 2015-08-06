@@ -43,6 +43,8 @@
     picker.minimumInteritemSpacing = 2.0;
     picker.modalPresentationStyle = UIModalPresentationPopover;
     
+    picker.showImagesOnly = YES;
+    
     UIPopoverPresentationController *popPC = picker.popoverPresentationController;
     popPC.permittedArrowDirections = UIPopoverArrowDirectionAny;
     popPC.sourceView = _gmImagePickerButton;

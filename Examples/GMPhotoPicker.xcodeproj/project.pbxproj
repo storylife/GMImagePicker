@@ -230,6 +230,25 @@
 		B3A2F8A319D18A3700A59BE4 /* GMImagePicker */ = {
 			isa = PBXGroup;
 			children = (
+				CB47D8AD1B728E1600020704 /* Ressources */,
+				B3A2F8A419D18A3700A59BE4 /* GMAlbumsViewCell.h */,
+				B3A2F8A519D18A3700A59BE4 /* GMAlbumsViewCell.m */,
+				B3A2F8A619D18A3700A59BE4 /* GMAlbumsViewController.h */,
+				B3A2F8A719D18A3700A59BE4 /* GMAlbumsViewController.m */,
+				B3A2F8A819D18A3700A59BE4 /* GMGridViewCell.h */,
+				B3A2F8A919D18A3700A59BE4 /* GMGridViewCell.m */,
+				B3A2F8AA19D18A3700A59BE4 /* GMGridViewController.h */,
+				B3A2F8AB19D18A3700A59BE4 /* GMGridViewController.m */,
+				B3A2F8AC19D18A3700A59BE4 /* GMImagePickerController.h */,
+				B3A2F8AD19D18A3700A59BE4 /* GMImagePickerController.m */,
+			);
+			name = GMImagePicker;
+			path = ../../GMImagePicker;
+			sourceTree = "<group>";
+		};
+		CB47D8AD1B728E1600020704 /* Ressources */ = {
+			isa = PBXGroup;
+			children = (
 				B31E084B1A0C45BC000D7841 /* Base.lproj */,
 				B31E084E1A0C45BC000D7841 /* ca.lproj */,
 				B31E08511A0C45BC000D7841 /* de.lproj */,
@@ -244,19 +263,8 @@
 				B321E47319D1A5FD0021FE16 /* GMEmptyFolder@2x.png */,
 				B321E46819D19A5B0021FE16 /* GMSelected.png */,
 				B321E46919D19A5B0021FE16 /* GMSelected@2x.png */,
-				B3A2F8A419D18A3700A59BE4 /* GMAlbumsViewCell.h */,
-				B3A2F8A519D18A3700A59BE4 /* GMAlbumsViewCell.m */,
-				B3A2F8A619D18A3700A59BE4 /* GMAlbumsViewController.h */,
-				B3A2F8A719D18A3700A59BE4 /* GMAlbumsViewController.m */,
-				B3A2F8A819D18A3700A59BE4 /* GMGridViewCell.h */,
-				B3A2F8A919D18A3700A59BE4 /* GMGridViewCell.m */,
-				B3A2F8AA19D18A3700A59BE4 /* GMGridViewController.h */,
-				B3A2F8AB19D18A3700A59BE4 /* GMGridViewController.m */,
-				B3A2F8AC19D18A3700A59BE4 /* GMImagePickerController.h */,
-				B3A2F8AD19D18A3700A59BE4 /* GMImagePickerController.m */,
 			);
-			name = GMImagePicker;
-			path = ../../GMImagePicker;
+			name = Ressources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -308,7 +316,7 @@
 				TargetAttributes = {
 					B37D577319CA3B3A007F64BD = {
 						CreatedOnToolsVersion = 6.0;
-						DevelopmentTeam = 683CMQCKAS;
+						DevelopmentTeam = 7G2C8A8AT6;
 					};
 					B37D578C19CA3B3A007F64BD = {
 						CreatedOnToolsVersion = 6.0;
